@@ -1,4 +1,4 @@
-template <typename T = long long, int N = 2, M = 1e9 + 7>
+template <typename T = int64_t, int N = 2, int M = 1e9 + 7>
 struct matrix
 {
     using T = long long;
