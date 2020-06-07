@@ -1,13 +1,12 @@
-constexpr int M = 1e9 + 9;
-template <int N>
+template <typename T = long long, int N = 2, M = 1e9 + 7>
 struct matrix
 {
-    using ll = long long;
-    using vec = array<ll, N>;
+    using T = long long;
+    using vec = array<T, N>;
     array<vec, N> a{};
     matrix() = default;
     matrix(const matrix &x) = default;
-    matrix(const initializer_list<ll> &il)
+    matrix(const initializer_list<T> &il)
     {
         assert(il.size() == N * N);
         auto itr = il.begin();
@@ -15,7 +14,7 @@ struct matrix
             for (int j = 0; j < N; j++)
                 a[i][j] = *itr++;
     }
-    matrix(const initializer_list<initializer_list<ll>> &il)
+    matrix(const initializer_list<initializer_list<T>> &il)
     {
         assert(il.size() == N);
         auto itr = il.begin();
