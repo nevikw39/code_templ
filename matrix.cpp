@@ -1,7 +1,6 @@
 template <typename T = int64_t, int N = 2, int M = 1e9 + 7>
 struct matrix
 {
-    using T = long long;
     using vec = array<T, N>;
     array<vec, N> a{};
     matrix() = default;
@@ -51,14 +50,14 @@ struct matrix
     }
     matrix power(int n) const
     {
-        matrix y;
+        matrix y, x = *this;
         for (int i = 0; i < N; i++)
             y.a[i][i] = 1;
         while (n)
         {
             if (n & 1)
-                y = y * a;
-            a = a * a;
+                y = y * x;
+            a = x * x;
             n >>= 1;
         }
         return move(y);
