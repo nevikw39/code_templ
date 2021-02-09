@@ -42,12 +42,12 @@ struct segment_tree
 {
     struct node
     {
-        T val, tag_update, tag_modify;
-        bool tag_modify_valid;
+        T val, update, modify;
+        bool modified;
         node *nl, *nr;
         node()
         {
-            val = tag_update = tag_modify_valid = 0;
+            val = update = modified = 0;
             nl = nr = nullptr;
         }
         void inline pull()
@@ -57,28 +57,28 @@ struct segment_tree
         void push(int l, int r)
         {
             int m = (l + r) >> 1;
-            if (tag_modify_valid)
+            if (modified)
             {
                 if (l != r)
                 {
-                    nl->tag_modify = nr->tag_modify = tag_modify;
-                    nl->tag_modify_valid = nr->tag_modify_valid = true;
-                    nl->val = tag_modify * t::bar(m - l + 1);
-                    nr->val = tag_modify * t::bar(r - m);
-                    nl->tag_update = nr->tag_update = 0;
+                    nl->modify = nr->modify = modify;
+                    nl->modified = nr->modified = true;
+                    nl->val = modify * t::bar(m - l + 1);
+                    nr->val = modify * t::bar(r - m);
+                    nl->update = nr->update = 0;
                 }
-                tag_modify_valid = tag_modify = 0;
+                modified = modify = 0;
             }
-            if (tag_update)
+            if (update)
             {
                 if (l != r)
                 {
-                    nl->tag_update += tag_update;
-                    nr->tag_update += tag_update;
-                    nl->val += tag_update * t::bar(m - l + 1);
-                    nr->val += tag_update * t::bar(r - m);
+                    nl->update += update;
+                    nr->update += update;
+                    nl->val += update * t::bar(m - l + 1);
+                    nr->val += update * t::bar(r - m);
                 }
-                tag_update = 0;
+                update = 0;
             }
         }
         T query(int ql, int qr, int l, int r)
@@ -97,7 +97,7 @@ struct segment_tree
                 return;
             if (ql <= l && r <= qr)
             {
-                tag_update += d;
+                update += d;
                 val += d * t::bar(r - l + 1);
                 return;
             }
@@ -113,10 +113,10 @@ struct segment_tree
                 return;
             if (ql <= l && r <= qr)
             {
-                if (tag_update)
-                    tag_update = 0;
-                tag_modify = k;
-                tag_modify_valid = true;
+                if (update)
+                    update = 0;
+                modify = k;
+                modified = true;
                 val = k * t::bar(r - l + 1);
                 return;
             }
