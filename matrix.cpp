@@ -1,4 +1,4 @@
-template <typename T = int64_t, int N = 2, int M = 1e9 + 7>
+template <typename T = int64_t, T N = 2, T M = 1e9 + 7>
 struct matrix
 {
     using vec = array<T, N>;
@@ -57,7 +57,7 @@ struct matrix
         {
             if (n & 1)
                 y = y * x;
-            a = x * x;
+            x = x * x;
             n >>= 1;
         }
         return move(y);
