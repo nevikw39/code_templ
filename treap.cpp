@@ -17,6 +17,10 @@ struct treap
         if (tr)
             delete tr;
     }
+    inline static int sz(treap *t)
+    {
+        return t ? t->size : 0;
+    }
     void pull()
     {
         size = sz(tl) + 1 + sz(tr);
