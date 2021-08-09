@@ -1,7 +1,7 @@
 template <typename T = int64_t>
 T inline bwabs(T x)
 {
-    return (x ^ (x >> ((sizeof(int64_t) << 3) - 1))) - (x >> ((sizeof(int64_t) << 3) - 1));
+    return (x ^ (x >> ((sizeof(T) << 3) - 1))) - (x >> ((sizeof(T) << 3) - 1));
 }
 template <typename T = int64_t>
 T inline bwmin(T x, T y)
