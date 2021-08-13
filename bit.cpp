@@ -11,14 +11,14 @@ struct bit
     }
     void update(int x, int val = 1)
     {
-        for (int i = x, n = v.size(); i <= n; i += lowbit(i))
-            v[i] += val;
+        for (int n = v.size() - 1; x <= n; x += lowbit(x))
+            v[x] += val;
     }
     int query(int x)
     {
         int y = 0;
-        for (int i = x; i > 0; i -= lowbit(i))
-            y += v[i];
+        for (; x > 0; x -= lowbit(x))
+            y += v[x];
         return y;
     }
 };
